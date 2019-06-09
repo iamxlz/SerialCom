@@ -1,0 +1,76 @@
+﻿<Window x:Class="SerialCom.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SerialCom"
+        mc:Ignorable="d"
+        Icon="i.ico"
+        Title="串口通信" Height="510" Width="925" FontSize="16">
+    <Grid>
+        <GroupBox x:Name="groupBox" Header="串口" HorizontalAlignment="Left" VerticalAlignment="Top" Height="89" Width="308" Background="#FF92D6CE" Margin="5,0,0,0">
+            <Grid HorizontalAlignment="Left" Height="49" VerticalAlignment="Top" Width="298">
+                <ComboBox x:Name="cbBox_Serial" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Top" Width="120" >
+                    <ComboBoxItem Content=""/>
+                    <ComboBoxItem Content=""/>
+					<ComboBoxItem Content=""/>
+					<ComboBoxItem Content=""/>
+                </ComboBox>
+                <Button x:Name="btn_OpenSerial" Content="打开串口" HorizontalAlignment="Left" Margin="131,6,0,0" VerticalAlignment="Top" Width="75" Height="30" Background="#CCFFFF" Click="btn_openChuanKou_Click"/>
+                <Button x:Name="btn_CloseSerial" Content="关闭串口" HorizontalAlignment="Left" Margin="214,6,0,0" VerticalAlignment="Top" Width="75" Height="30" Background="#CCFFFF" Click="btn_closeChuanKou_Click"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox x:Name="groupBox2" Header="设备控制类操作" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Height="165" Width="247">
+            <Grid Height="143" Margin="0,0,-2,-6" VerticalAlignment="Top">
+                <ComboBox x:Name="cbBox_Cmd01" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="10,25,0,0" RenderTransformOrigin="0.59,0.727">
+                    <ComboBoxItem Content="读设备信息"/>
+                    <ComboBoxItem Content="配置读卡芯片"/>
+                    <ComboBoxItem Content="关闭读卡芯片"/>
+                </ComboBox>
+                <Button x:Name="btn_SendCmd01" Content="发送" HorizontalAlignment="Left" Margin="150,21,0,0" VerticalAlignment="Top" Width="75" Height="30" Background="#CCFFFF" Click="btn_SendCmd01_Click" RenderTransformOrigin="0.443,1.1"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox3" Header="ISO14443A协议操作" HorizontalAlignment="Left" Margin="257,89,0,0" VerticalAlignment="Top" Height="165" Width="346">
+            <Grid Margin="0,0,-3.2,-0.4">
+                <Button x:Name="btn_Request" Content="请求" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="0,5,0,0" Background="#CCFFFF" Click="btn_Request_Click" />
+                <Button x:Name="btn_CascAnticoll" Content="防碰撞" HorizontalAlignment="Left" Margin="75,5,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF"  Click="btn_CascAnticoll_Click"/>
+                <Button x:Name="btn_CascSelect" Content="选择" HorizontalAlignment="Left" Margin="150,5,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_CascSelect_Click"/>
+                <Button x:Name="btn_Halt" Content="暂停" HorizontalAlignment="Left" Margin="150,53,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_Halt_Click"/>
+                <Button x:Name="btn_AuthKey" Content="验证" HorizontalAlignment="Left" Margin="225,5,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_AuthKey_Click"/>
+                <Button x:Name="btn_Read" Content="读卡" HorizontalAlignment="Left" Margin="0,29,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_Read_Click"/>
+                <Button x:Name="btn_Write" Content="写卡" HorizontalAlignment="Left" Margin="75,29,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_Write_Click"/>
+                <Button x:Name="btn_Add" Content="加值" HorizontalAlignment="Left" Margin="150,29,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_Add_Click"/>
+                <Button x:Name="btn_Sub" Content="减值" HorizontalAlignment="Left" Margin="225,29,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_Sub_Click"/>
+                <Button x:Name="btn_BlockRead" Content="单指令读" HorizontalAlignment="Left" Margin="0,53,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_BlockRead_Click" RenderTransformOrigin="-0.008,1.458"/>
+                <Button x:Name="btn_BlockWrite" Content="单指令写" HorizontalAlignment="Left" Margin="75,53,0,0" VerticalAlignment="Top" Width="75" Background="#CCFFFF" Click="btn_BlockWrite_Click"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox4" Header="读出数据" HorizontalAlignment="Left"  Margin="10,259,0,0" VerticalAlignment="Top" Background="#FFD1DAD9" Height="106" Width="593">
+            <Grid HorizontalAlignment="Left" Height="84" Margin="0" VerticalAlignment="Top" Width="583">
+                <TextBox x:Name="tb_Hint" HorizontalAlignment="Left" Height="74" Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="583"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox1" Header="写数据（16进制，空格键分隔）" HorizontalAlignment="Left" Margin="10,365,0,0" VerticalAlignment="Top" Background="#FFD1DAD9" Height="106" Width="588">
+            <Grid HorizontalAlignment="Left" Margin="0,0,-2.2,0" Width="583" Height="78" VerticalAlignment="Top">
+                <TextBox x:Name="tb_Write" Height="30" TextWrapping="Wrap" Text="00 11 22 33 44 55 66 77 88 99 aa bb cc dd ee ff" VerticalAlignment="Top" HorizontalAlignment="Left" Width="579"/>
+                <Label x:Name="lb_BlockAddress" Content="块地址：" HorizontalAlignment="Left" Margin="10,29,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="tb_BlockAddress" HorizontalAlignment="Left" Height="23" Margin="75,33,0,0" TextWrapping="Wrap" Text="04" VerticalAlignment="Top" Width="75"/>
+                <Label x:Name="label" Content="卡块号0x04：热水卡系统" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="154,29,0,0" Height="42"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox5" Header="密钥" HorizontalAlignment="Left" Margin="313,0,0,0" VerticalAlignment="Top" Height="89" Width="290" Background="#FF92D6CE">
+            <Grid HorizontalAlignment="Left" Height="58" VerticalAlignment="Top" Width="280">
+                <TextBox x:Name="tb_SecretKey" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" TextWrapping="Wrap" Text="FF FF FF FF FF FF" VerticalAlignment="Top" Width="136"/>
+                <RadioButton x:Name="rb_SecretKeyA" Content="密钥A" HorizontalAlignment="Left" Margin="150,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton x:Name="rb_SecretKeyB" Content="密钥B" HorizontalAlignment="Left" Margin="216,10,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox x:Name="groupBox6" Header="门禁" HorizontalAlignment="Left" Margin="608,0,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.367,-0.09" Height="470" Width="299">
+            <Grid HorizontalAlignment="Left" Height="450" Margin="10,10,-2,-18" VerticalAlignment="Top" Width="279">
+                <Image x:Name="img_AccessControl" HorizontalAlignment="Left" Height="210" Margin="10,10,0,0" VerticalAlignment="Top" Width="259"/>
+                <Button x:Name="lb_Authorization" Content="授权" HorizontalAlignment="Left" Margin="103,392,0,0" VerticalAlignment="Top" Width="75" Height="30" Background="#CCFFFF" Click="lb_Authorization_Click"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>
